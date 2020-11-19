@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<nav class="navbar navbar-light bg-light shadow-lg p-3 mb-4 bg-white rounded">
+    <div class="container">
+      <a class="navbar-brand font-weight-bold text-primary">WORKSHOP MANAGEMENT SYSTEM</a>
+      <a href="{% url 'login' %}">
+      <button type="submit" class="btn btn-primary">Login</button>
+
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="container my-5 ">
+    <div class="row mt-5">
+      <div class="col-md-5 mt-5">
+        <img src="{% static 'img/login.png' %}" class="img-fluid mt-5 " alt="">
+      </div>
+      <div class="col-md-7 mt-5">
+        <h1 class="py-3 text-primary">Student Signup</h1>
+        <form method="POST" action="{% url 'student_register' %}" class="row g-3" novalidate>
+          {% csrf_token %}
+          <div class="col-md-6">
+            <input type="username" class="form-control text-center" name="username" id="inputEmail4" placeholder="Username">
+          </div>
+          <div class="col-md-6">
+            <input type="email" name="email" class="form-control text-center"  id="inputPassword4" placeholder="Email">
+          </div>
+          <div class="col-md-6">
+            <input type="password" name="password1" class="form-control text-center" id="inputEmail4" placeholder="Password">
+          </div>
+          <div class="col-md-6">
+            <input type="password" name="password2" class="form-control text-center" id="inputPassword4" placeholder="Confirm Password">
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="first_name" class="form-control text-center" placeholder="First Name">
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="last_name" class="form-control text-center" id="inputtext4" placeholder="Last Name">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="sex" placeholder="Gender" class="form-select text-center">
+              <option>Male</option>
+              <option>Female</option>
+              
+            </select>
+          </div>
+          <div class="col-8">
+            <input type="text" name="address" class="form-control text-center" id="inputAddress" placeholder="Address">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="branch" placeholder="Branch" class="form-select">
+              <option>COMPUTER</option>
+              <option>EXTC</option>
+              <option>MECHANICAL</option>
+              <option>AUTOMOBILE</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="phone_number" class="form-control text-center" placeholder="Phone Number">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="year" class="form-select text-center" placeholder="Year" >
+              <option>FE</option>
+              <option>SE</option>
+              <option>TE</option>
+              <option>BE</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="number" name="roll_number" class="form-control text-center" id="inputPassword4" placeholder="Roll Number">
+          </div>
+          
+          
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Create an account</button>
+          </div>
+
+          <div class="col-12">
+          {% for field in form.visible_fields %}
+          {% for error in field.errors %}
+          <div class="alert alert-danger mx-4" role="alert">
+              {{ field.label_tag }}
+               <span style=" color:red"> {{ error }}</span>
+          </div>
+          {% endfor %}
+          {% endfor %}
+          
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
+
+
+
+
