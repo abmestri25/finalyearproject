@@ -8,11 +8,6 @@ body {
     background: #fafafa;
 }
 
-
-.bgimg {
-    background-image: url("img/login.png");
-}
-
 p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
