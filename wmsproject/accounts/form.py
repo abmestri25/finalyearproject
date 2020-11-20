@@ -211,7 +211,7 @@ class ReportForm(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
     username=forms.CharField(label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False,disabled=True)
-    first_name=forms.CharField(label="First Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False,disabled=True)
+    first_name=forms.CharField(label="First Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
     last_name=forms.CharField(label="Last Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
     email=forms.EmailField(label="Email",max_length=50,widget=forms.EmailInput(attrs={"class":"form-control"}),required=False)
 
@@ -238,7 +238,7 @@ class HODForm(forms.ModelForm):
     qualification=forms.CharField(label="Qualification",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
     address=forms.CharField(label="Address",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
     phone_number=forms.CharField(label="Phone Number",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
-    sex = forms.ChoiceField(label="Department",choices=genders,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    sex = forms.ChoiceField(label="Gender",choices=genders,widget=forms.Select(attrs={"class":"form-control"}),required=False)
     profile_pic =forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control-file"}),required=False)
 
     
@@ -248,48 +248,60 @@ class HODForm(forms.ModelForm):
         exclude = ['user']
         
 
-    # def __init__(self,*args,**kwargs):
-    #     super().__init__(*args,**kwargs)  
-    #     self.fields['first_name'].widget.attrs.update({'class':'form-control',})
-    #     self.fields['middle_name'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['last_name'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['branch'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['phone_number'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['profile_pic'].widget.attrs.update({'class':'form-control-file'})
-    #     self.fields['sex'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['address'].widget.attrs.update({'class':'form-control'})
-    #     self.fields['qualification'].widget.attrs.update({'class':'form-control'})
-
-# class FacultyForm(ModelForm):
-#     class Meta:
-#         model = Faculty
-#         fields = '__all__'
-#         exclude = ['user']
-
-#     def __init__(self,*args,**kwargs):
-#         super().__init__(*args,**kwargs)  
-#         self.fields['first_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['middle_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['last_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['branch'].widget.attrs.update({'class':'form-control'})
-#         self.fields['qualification'].widget.attrs.update({'class':'form-control'})
-#         self.fields['date_joined'].widget.attrs.update({'class':'dateInput form-control','id':'id_birth_date'})
-#         self.fields['phone_no'].widget.attrs.update({'class':'form-control'})
-#         self.fields['profile_pic'].widget.attrs.update({'class':'form-control-file'})
+class FacultyForm(forms.ModelForm):
+    branches =  (
+        ('COMPUTER','COMPUTER'),
+        ('EXTC','EXTC'),
+        ('MECHANICAL','MECHANICAL'),
+        ('AUTOMOBILE','AUTOMOBILE')
+    )
+    genders = (
+        ('Male','Male'),
+        ('Female','Female')
+    )
+    middle_name=forms.CharField(label="Middle Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    joined_at = forms.DateTimeField(label="Joined At",widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    branch = forms.ChoiceField(label="Department",choices=branches,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    qualification=forms.CharField(label="Qualification",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    address=forms.CharField(label="Address",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    phone_number=forms.CharField(label="Phone Number",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    sex = forms.ChoiceField(label="Department",choices=genders,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    profile_pic =forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control-file"}),required=False)
+    class Meta:
+        model = Faculty
+        fields = '__all__'
+        exclude = ['user']
 
 
-# class StudentForm(ModelForm):
-#     class Meta:
-#         model = Student
-#         fields = '__all__'
-#         exclude = ['user']
 
-#     def __init__(self,*args,**kwargs):
-#         super().__init__(*args,**kwargs)  
-#         self.fields['first_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['middle_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['last_name'].widget.attrs.update({'class':'form-control'})
-#         self.fields['branch'].widget.attrs.update({'class':'form-control'})
-#         self.fields['year'].widget.attrs.update({'class':'form-control'})
-#         self.fields['phone_no'].widget.attrs.update({'class':'form-control'})
-#         self.fields['profile_pic'].widget.attrs.update({'class':'form-control-file'})
+class StudentForm(forms.ModelForm):
+    branches =  (
+        ('COMPUTER','COMPUTER'),
+        ('EXTC','EXTC'),
+        ('MECHANICAL','MECHANICAL'),
+        ('AUTOMOBILE','AUTOMOBILE')
+    )
+    genders = (
+        ('Male','Male'),
+        ('Female','Female')
+    )
+    years = (
+        ('FE','FE'),
+        ('SE','SE'),
+        ('TE','TE'),
+        ('BE','BE')
+    )
+    middle_name=forms.CharField(label="Middle Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    branch = forms.ChoiceField(label="Department",choices=branches,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    address=forms.CharField(label="Address",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    phone_number=forms.CharField(label="Phone Number",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    sex = forms.ChoiceField(label="Gender",choices=genders,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    roll_number = forms.IntegerField(label="Roll Number",widget=forms.TextInput(attrs={"class":"form-control"}),required=False)
+    year = forms.ChoiceField(label="Year",choices=years,widget=forms.Select(attrs={"class":"form-control"}),required=False)
+    profile_pic =forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control-file"}),required=False)
+    class Meta:
+        model = Student
+        fields = '__all__'
+        exclude = ['user']
+
+    

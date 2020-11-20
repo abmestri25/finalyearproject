@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>WORKSHOP MANAGEMENT SYSTEM</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <div class="d-flex flex-column justify-content-center text-center ">
+                {% if request.user.hod.profile_pic %}
+          <img src="{{request.user.hod.profile_pic.url}}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
+        {% else %}
+          <img src="{% static 'img/profile.png' %}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
+
+        {% endif %}
+                <h5>{{request.user.first_name}} {{request.user.last_name}}</h5>
+                <h6>HOD</h6>
+                <ul class="list-unstyled ">
+                    <li>
+
+                        <button type="button" class="btn">
+                            <a href="{% url 'assign_task' %}">Assign Faculty
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </button>
+
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+
+            <div class="nav flex-column nav-pills text-center mt-2" aria-orientation="vertical">
+                <a class="nav-link" href="{% url 'hod_home' %}"><i class="fas fa-home"></i> Home</a>
+
+                <a class="nav-link" href="{% url 'all_reports' %}"><i class="fas fa-building"></i> All
+                    Reports</a>
+                <a class="nav-link " href="{% url 'faculties' %}"><i class="fas fa-building"></i> Faculties</a>
+                <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
+                <a class="nav-link " href="{% url 'profile' %}"><i class="fas fa-building"></i> Profile</a>
+                <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
+                <a class="nav-link active " href="{% url 'add_student' %}"><i class="fas fa-building"></i> Add Student</a> 
+
+            </div>
+
+        </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+
+
+        <nav class="navbar navbar-expand-lg " style="background-color: #7386D5;">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn text-light bg-dark btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <a href="{% url 'logout' %}">
+                    <button type="button" class="btn btn-danger">
+                        <i class="fas fa-power-off"></i>
+                    </button>
+                </a>
+
+
+
+            </div>
+        </nav>
+
+
+
+
+
+        <div class="line"></div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between py-2">
+                    <h3>Add Student</h3>
+
+                </div>
+
+
+               <form method="POST" action="{% url 'student_register' %}" class="row g-3" novalidate>
+          {% csrf_token %}
+          <div class="col-md-6">
+            <input type="username" class="form-control text-center" name="username" id="inputEmail4" placeholder="Username">
+          </div>
+          <div class="col-md-6">
+            <input type="email" name="email" class="form-control text-center"  id="inputPassword4" placeholder="Email">
+          </div>
+          <div class="col-md-6">
+            <input type="password" name="password1" class="form-control text-center" id="inputEmail4" placeholder="Password">
+          </div>
+          <div class="col-md-6">
+            <input type="password" name="password2" class="form-control text-center" id="inputPassword4" placeholder="Confirm Password">
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="first_name" class="form-control text-center" placeholder="First Name">
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="last_name" class="form-control text-center" id="inputtext4" placeholder="Last Name">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="sex" placeholder="Gender" class="form-select text-center">
+              <option>Male</option>
+              <option>Female</option>
+              
+            </select>
+          </div>
+          <div class="col-8">
+            <input type="text" name="address" class="form-control text-center" id="inputAddress" placeholder="Address">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="branch" placeholder="Branch" class="form-select">
+              <option>COMPUTER</option>
+              <option>EXTC</option>
+              <option>MECHANICAL</option>
+              <option>AUTOMOBILE</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="phone_number" class="form-control text-center" placeholder="Phone Number">
+          </div>
+          <div class="col-md-4">
+            <select id="inputState" name="year" class="form-select text-center" placeholder="Year" >
+              <option>FE</option>
+              <option>SE</option>
+              <option>TE</option>
+              <option>BE</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="number" name="roll_number" class="form-control text-center" id="inputPassword4" placeholder="Roll Number">
+          </div>
+          
+          
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Add Student</button>
+          </div>
+
+          <div class="col-12">
+          {% for field in form.visible_fields %}
+          {% for error in field.errors %}
+          <div class="alert alert-danger mx-4" role="alert">
+              {{ field.label_tag }}
+               <span style=" color:red"> {{ error }}</span>
+          </div>
+          {% endfor %}
+          {% endfor %}
+          
+          </div>
+
+        </form>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+{% endblock content %}
