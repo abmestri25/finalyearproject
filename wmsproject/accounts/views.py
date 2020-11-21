@@ -3,23 +3,20 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.generic import CreateView
-from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User,Faculty,Student,HOD,TaskAssigned,Report
 from .form import HODSignUpForm,StudentSignUpForm,FacultySignUpForm,AssignedTask,ReportForm,UserUpdateForm,HODForm,FacultyForm,StudentForm
 from django.core.mail import send_mail, EmailMessage
 from wmsproject.settings import EMAIL_HOST_USER
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 # Create your views here.
 
 def login_request(request):
-    if request.method=='POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+    if request.method == 'POST':   
+            username = request.POST.get('username')
+            password = request.POST.get('password')
             user = authenticate(username=username, password=password)
             if user is not None :
                 if user.is_student :
@@ -32,16 +29,15 @@ def login_request(request):
                     login(request,user)
                     return redirect('hod_home')
                 else:
-                    return HttpResponse("Please Sign up")
-
+                    return HttpResponse("Please Register !")
             else:
-                messages.error(request,"Invalid username or password")
-        else:
-                messages.error(request,"Form is not valid")
-    context={
-        'form':AuthenticationForm()
-        }
-    return render(request, '../templates/login.html',context)
+                return HttpResponse("Invalid Login Credentials !")
+
+
+    return render(request,'../templates/login.html')
+        
+
+
 
 class hod_register(CreateView):
     model = User
