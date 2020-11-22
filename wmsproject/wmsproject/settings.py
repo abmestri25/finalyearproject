@@ -25,8 +25,7 @@ SECRET_KEY = 'cd$(c0+ok*s^+seva0k4$n7$j-wlq@-iyjg9xa%y%+zwddn5q$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['127.0.0.1','beprojectwms.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','beprojectwms.herokuapp.com']
 
 
 # Application definition
