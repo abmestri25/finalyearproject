@@ -17,6 +17,9 @@ urlpatterns=[
      path('hod/disapprove_report/<str:report_id>',views.disapprove_report,name="disapprove_report"),
      path('hod/add_student/',views.add_student,name="add_student"),
      path('hod/add_faculty/',views.add_faculty,name="add_faculty"),
+     path('hod/all_reports/view_report/<str:report_id>/',views.view_report,name="view_report"),
+     path('hod/all_reports/delete_report/<str:report_id>/',views.delete_report,name="delete_report"),
+     path('hod/faculties/edit_faculty/<str:faculty_id>/',views.edit_faculty,name="edit_faculty"),
 
      path('faculty_home/',views.faculty_home,name="faculty_home"),
      path('faculty/create_report/',views.create_report,name="create_report"),

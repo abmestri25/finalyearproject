@@ -42,9 +42,9 @@
           Reports</a>
         <a class="nav-link " href="{% url 'faculties' %}"><i class="fas fa-building"></i> Faculties</a>
         <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
-        <a class="nav-link " href="{% url 'profile' %}"><i class="fas fa-building"></i> Profile</a> 
         <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
         <a class="nav-link " href="{% url 'add_student' %}"><i class="fas fa-building"></i> Add Student</a> 
+        <a class="nav-link " href="{% url 'profile' %}"><i class="fas fa-building"></i> Profile</a> 
 
       </div>
 
@@ -169,7 +169,9 @@
                       {% endif %}
           
                     </td>
-                    <td><a href="" class="btn btn-sm btn-secondary">View</a></td>
+                    <td><a href="{% url 'view_report' report.id %}" class="btn btn-sm btn-primary" >
+  View
+</a></td>
                   </tr>
                   {% endfor %}
 
@@ -185,15 +187,25 @@
 
         </div>
 
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"> This is title{{viewreport.event_title}}</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                this is modal body
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
   </div>
-
-
-
-
-
-
-
 </div>
 
 {% endblock content %}

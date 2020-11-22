@@ -137,6 +137,15 @@ def all_reports(request):
     return render(request,'../templates/hod/allreports.html',context)
 
 @login_required(login_url='login')
+def view_report(request,report_id):
+    report = Report.objects.get(id=report_id)
+    context =  {
+        'report':report,
+    }
+    return render(request,'../templates/hod/view_report.html',context)
+
+
+@login_required(login_url='login')
 def profile(request):
     form = HODForm(request.POST or None,instance=request.user.hod)
     u_form = UserUpdateForm(request.POST or None,instance=request.user)
@@ -152,6 +161,13 @@ def profile(request):
         'u_form':u_form
     }
     return render(request,'../templates/hod/profile.html',context)
+
+
+@login_required(login_url='login')
+def delete_report(request,report_id):
+    report = Report.objects.get(id=report_id).delete()
+    return redirect('all_reports')
+
 
 @login_required(login_url='login')
 def faculties(request):
@@ -195,12 +211,12 @@ def approve_report(request,report_id):
     
     report.status=1
     report.save()
-    message= "Your Report"+ report.event_title +"is Approved."
+    message= "Your Report is Approved."
     subject= "Report Approval"
     mail=EmailMessage(subject,message,EMAIL_HOST_USER,[email])
     mail.content_subtype='html'
     mail.send()
-    return HttpResponseRedirect(reverse("hod_home"))
+    return HttpResponseRedirect(reverse("all_reports"))
 
 @login_required(login_url='login')
 def disapprove_report(request,report_id):
@@ -208,12 +224,31 @@ def disapprove_report(request,report_id):
     email = report.event_coordinator.user.email
     report.status=2
     report.save()
-    message= "Your Report"+ report.event_title +"is Rejected.Kindly Resend the report by making desired changes."
+    message= "Your Report is Rejected."
     subject= "Report Disapproval"
     mail=EmailMessage(subject,message,EMAIL_HOST_USER,[email])
     mail.content_subtype='html'
     mail.send()
-    return HttpResponseRedirect(reverse("hod_home"))
+    return HttpResponseRedirect(reverse("all_reports"))
+
+@login_required(login_url='login')
+def edit_faculty(request,faculty_id):   
+    faculty = Faculty.objects.get(user=faculty_id)
+    form = FacultyForm(request.POST or None,instance=faculty)
+    u_form = UserUpdateForm(request.POST or None,instance=faculty.user)
+    if request.method == "POST":
+        if form.is_valid() and u_form.is_valid():
+            form.save()
+            u_form.save()
+            return redirect ('hod_home')
+        else:
+            print("Errors",form.errors)
+    context = {
+        'form':form,
+        'u_form':u_form
+    }
+    return render(request,'../templates/hod/edit_faculty.html',context)
+
 
 
 @login_required(login_url='login')
