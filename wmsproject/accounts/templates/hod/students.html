@@ -42,9 +42,9 @@
         <a class="nav-link" href="{% url 'all_reports' %}"><i class="fas fa-building"></i> All
           Reports</a>
         <a class="nav-link " href="{% url 'faculties' %}"><i class="fas fa-building"></i> All Faculties</a>
-        <a class="nav-link " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
+        <a class="nav-link active " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
 
-        <a class="nav-link active " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
+        <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
         <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
         <a class="nav-link " href="{% url 'add_student' %}"><i class="fas fa-building"></i> Add Student</a> 
         <a class="nav-link " href="{% url 'profile' %}"><i class="fas fa-building"></i> Profile</a> 
@@ -87,48 +87,60 @@
 <div class="row">
           <div class="col-md-12">
             <div class="d-flex justify-content-between py-2">
-              <h3>Task Assigned</h3>
+              <h3>All Students</h3>
               {% comment %} <button class="btn btn-sm">View All</button> {% endcomment %}
 
             </div>
             <div class="table-responsive">
-
             <table class="table">
-              <thead>
+              <thead class="text-center">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Faculty</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">For Whome</th>
+                  <th scope="col">Profile Pic</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Mobile Number</th>
+                  <th scope="col">Address</th>
                   <th scope="col">Department</th>
-                  <th scope="col">Resource Person</th>
-                  <th scope="col">Created at</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Year</th>
+                  <th scope="col">Roll Number</th>
+                  <th scope="col">Edit</th>
                   <th scope="col">Remove</th>
 
                 </tr>
               </thead>
-              <tbody>
-                {% for task in tasks %}
+              <tbody class="text-center">
+                {% for student in students %}
                 <tr>
                   <th scope="row"> {{forloop.counter}} </th>
-                  <td>{{task.event_title}}</td>
-                  <td>{{task.event_coordinator}}</td>
-                  <td>{{task.types}}</td>
-                  <td>{{task.forwhome}}</td>
-                  <td>{{task.org_department}}</td>
-                  <td>{{task.res_person}}</td>
-                  <td>{{task.created_at}}</td>
-                  <td><a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-info">Edit</a></td>
+                  {% if student.profile_pic %}
+                    <td><img src="{{student.profile_pic.url}}" alt="pp" width="37" height="37"
+                        class="rounded mr-3" loading="lazy"></td>
+                  {% else %}
+                    <td><img src="{% static 'img/profile.png' %}" alt="pp" width="37" height="37"
+                        class="rounded mr-3" loading="lazy"></td>
+                  {% endif %}
+                  <td>{{student.user.username}}</td>
+                  <td>{{student.user.first_name}} {{student.user.last_name}}</td>
+                  <td>{{student.sex}}</td>
+                  <td>{{student.user.email}}</td>
+                  <td>{{student.phone_number}}</td>
+                  <td>{{student.address}}</td>
+                  <td>{{student.branch}}</td>
+                  <td>{{student.year}}</td>
+                  <td>{{student.roll_number}}</td>
+                 
+                  <td><a href="{% url 'edit_student' student.user.id %}" class="btn btn-sm btn-info">Edit</a></td>
+                  <td><a href="{% url 'delete_student' student.user.id %}" class="btn btn-sm btn-danger">Delete</a></td>
                   
-                  <td><a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id %}">Delete</a></td>
                 </tr>
                 {% endfor %}
 
               </tbody>
             </table>
-            </div>  
+          </div>
           </div>
 
 

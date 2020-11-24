@@ -12,9 +12,9 @@
     <ul class="list-unstyled components">
       <div class="d-flex flex-column justify-content-center text-center ">
         {% if request.user.faculty.profile_pic %}
-          <img src="{{request.user.faculty.profile_pic.url}}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
+          <a href="{% url 'faculty_profile' %}"><img src="{{request.user.faculty.profile_pic.url}}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt=""></a>
         {% else %}
-          <img src="{% static 'img/profile.png' %}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
+          <a href="{% url 'faculty_profile' %}"><img src="{% static 'img/profile.png' %}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt=""></a>
 
         {% endif %}
         <h5>{{request.user.first_name}} {{request.user.last_name}} </h5>
@@ -49,43 +49,6 @@
 
   <!-- Page Content  -->
   <div id="content">
-
-{% comment %} 
- <div class="row d-flex justify-content-end">
-
-{% for field in form.visible_fields %}
-      {% for error in field.errors %}
-      
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>{{ field.label_tag }}</strong><span style=" color:red"> {{ error }}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-      {% endfor %}
-    </div> {% endcomment %}
-
-{% comment %} 
-{% for field in form.visible_fields %}
-      {% for error in field.errors %}
-  <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-  <div class="toast" style="position: absolute; top: 0; right: 0;">
-    <div class="toast-header">
-      <img src="..." class="rounded mr-2" alt="...">
-      <strong class="mr-auto">{{request.user}}</strong>
-      <small>11 min ago</small>
-      <button type="button" class="btn-close" data-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-    {{ error }}
-    </div>
-  </div>
-</div>
-{% endfor %}
-{% endfor %} {% endcomment %}
-
-
     <nav class="navbar navbar-expand-lg " style="background-color: #7386D5;">
       <div class="container-fluid">
 
@@ -150,9 +113,10 @@
         <div class="line"></div>
         <div class="row">
           <div class="col-md-6">
-            <div class="d-flex justify-content-between py-2">
-              <h3>Recent Reports</h3>
-              <button class="btn btn-sm">View All</button>
+            <div class="d-flex justify-content-between align-items-center py-2">
+              <h3>My Recent Reports</h3>
+              <a href="{% url 'my_reports' %}" class="btn btn-sm btn-primary">View All</a>
+
 
             </div>
             <div class="table-responsive">
@@ -166,7 +130,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for report in reports %}
+                {% for report in my_reports %}
                  <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{report.event_title}}</td>
@@ -181,9 +145,9 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="d-flex justify-content-between py-2">
-              <h3>Pending Reports</h3>
-              <button class="btn btn-sm">View All</button>
+            <div class="d-flex justify-content-between align-items-center py-2">
+              <h3>My Tasks</h3>
+              <a href="{% url 'messages' %}" class="btn btn-sm btn-primary">View All</a>
 
             </div>
             <div class="table-responsive">
@@ -197,12 +161,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for report in pending_reports %}
+                {% for task in my_tasks %}
                  <tr>
                     <th scope="row">{{forloop.counter}}</th>
-                    <td>{{report.event_title}}</td>
-                    <td>{{report.event_coordinator}}</td>
-                    <td>{{report.created_at}}</td>
+                    <td>{{task.event_title}}</td>
+                    <td>{{task.event_coordinator}}</td>
+                    <td>{{task.created_at}}</td>
                   </tr>
                 {% endfor %}
                  
@@ -219,7 +183,6 @@
           <div class="col-md-12">
             <div class="d-flex justify-content-between py-2">
               <h3>All Faculties</h3>
-              <button class="btn btn-sm">View All</button>
 
             </div>
             <div class="table-responsive">

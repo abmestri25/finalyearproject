@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>WMS | HOME</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        p {
+            font-size: 15px;
+        }
+        h1{
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            margin: 30px;
+            padding: 8px;
+            height: 300px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <center>
+        <h1>Report Details</h1>
+        <p>Created At {{report.created_at}} </p>
+    </center>
+    <hr>
+    <div class="row" style="margin-top: 10px;">
+        <div class="column">
+            <p>Report Title : <span>{{report.event_title }}</span></p>
+        </div>
+        <div class="column">
+            <p>Academic Year : {{report.academic_year }}</p>
+        </div>
+        <div class="column">
+            <p>Department : {{report.org_department }} ENGINEERING</p>
+        </div>
+        <div class="column">
+            <p>Event Type : {{report.types }}</p>
+        </div>
+        <div class="column">
+            <p>Start Date : {{report.start_date }}</p>
+        </div>
+        <div class="column">
+            <p>End Date : {{report.end_date }}</p>
+        </div>
+        <div class="column">
+            <p>Duration : {{report.duration }} Hours</p>
+        </div>
+        <div class="column">
+            <p>For Whome : {{report.forwhome }}</p>
+        </div>
+        <div class="column">
+            <p>Number Of Participants : {{report.no_participants }}</p>
+        </div>
+        <div class="column">
+            <p>Resource Person : {{report.res_person }}</p>
+        </div>
+        <div class="column">
+           <img src={{report.res_person_profile_pic.path}}  width="60px" alt="this is alternative ">
+        </div>
+        <div class="column">
+            <p>Event Coordinator : {{report.event_coordinator }}</p>
+        </div>
+        <div class="column">
+            <p>Remark : {{report.remark }}</p>
+        </div>
+        <div class="column">
+            <p>Description : {{report.description }}</p>
+        </div>
+        <div class="column">
+            <p>Google Drive Link : {{report.p_link }}</p>
+        </div>
+        <div class="column">
+            <p>Status : {{report.status }}</p>
+            <p>0 : Not Yet Approved , 1 : Approved , 2 : Disapproved </p>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

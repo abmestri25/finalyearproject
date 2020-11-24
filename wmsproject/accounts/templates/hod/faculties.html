@@ -11,8 +11,9 @@
         <ul class="list-unstyled components">
             <div class="d-flex flex-column justify-content-center text-center ">
                 {% if request.user.hod.profile_pic %}
+<a href="{% url 'profile' %}">
           <img src="{{request.user.hod.profile_pic.url}}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
-        {% else %}
+          </a>        {% else %}
           <img src="{% static 'img/profile.png' %}" class="img-fluid rounded-circle mx-auto mb-2" width="60px" alt="">
 
         {% endif %}
@@ -40,7 +41,9 @@
 
         <a class="nav-link" href="{% url 'all_reports' %}"><i class="fas fa-building"></i> All
           Reports</a>
-        <a class="nav-link active " href="{% url 'faculties' %}"><i class="fas fa-building"></i> Faculties</a>
+        <a class="nav-link active " href="{% url 'faculties' %}"><i class="fas fa-building"></i> All Faculties</a>
+        <a class="nav-link " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
+
         <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
         <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
         <a class="nav-link " href="{% url 'add_student' %}"><i class="fas fa-building"></i> Add Student</a> 
@@ -85,14 +88,14 @@
           <div class="col-md-12">
             <div class="d-flex justify-content-between py-2">
               <h3>All Faculties</h3>
-              {% comment %} <button class="btn btn-sm">View All</button> {% endcomment %}
 
             </div>
             <div class="table-responsive">
             <table class="table">
-              <thead>
+              <thead class="text-center">
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">Profile Pic</th>
                   <th scope="col">First Name</th>
                   <th scope="col">Middle Name</th>
                   <th scope="col">Last Name</th>
@@ -106,10 +109,13 @@
 
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="text-center">
                 {% for faculty in faculties %}
                 <tr>
                   <th scope="row"> {{forloop.counter}} </th>
+                  <td><img src="{{faculty.profile_pic.url}}" alt="pp" width="37" height="37"
+                    class="rounded mr-3" loading="lazy">
+                </td>
                   <td>{{faculty.user.first_name}}</td>
                   <td>{{faculty.middle_name}}</td>
                   <td>{{faculty.user.last_name}}</td>
@@ -119,10 +125,7 @@
                   <td>{{faculty.qualification}}</td>
                   <td>{{faculty.joined_at}}</td>
                   <td><a href="{% url 'edit_faculty' faculty.user.id %}" class="btn btn-sm btn-info">Edit</a></td>
-                  <td><button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                      data-target="#staticBackdrop2">
-                      Delete
-                    </button></td>
+                  <td><a href="{% url 'delete_faculty' faculty.user.id %}" class="btn btn-sm btn-danger">Delete</a></td>
                 </tr>
                 {% endfor %}
 

@@ -44,7 +44,7 @@
                 <a class="nav-link " href="{% url 'faculties' %}"><i class="fas fa-building"></i> All Faculties</a>
         <a class="nav-link " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
 
-                <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
+                <a class="nav-link active " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
         <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
         <a class="nav-link " href="{% url 'add_student' %}"><i class="fas fa-building"></i> Add Student</a> 
                 <a class="nav-link " href="{% url 'profile' %}"><i class="fas fa-building"></i> Profile</a>
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between py-2">
-                    <h3>Assign Faculty</h3>
+                    <h3>Edit Task</h3>
 
                 </div>
 
@@ -97,34 +97,30 @@
                     {% csrf_token %}
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Title</label>
-                        {{assignform.event_title}}
+                        {{form.event_title}}
                     </div>
                     <div class="col-lg-6">
                         <label for="inputCity" class="form-label">Type</label>
-                        {{assignform.types}}
+                        {{form.types}}
                     </div>
 
                     <div class="col-lg-6">
                         <label for="inputPassword4" class="form-label">Department</label>
-                        {{assignform.org_department}}
+                        {{form.org_department}}
                     </div>
                     <div class="col-lg-6">
                         <label for="inputCity" class="form-label">For Whome</label>
-                        {{assignform.forwhome}}
+                        {{form.forwhome}}
                     </div>
 
                     <div class="col-lg-6">
                         <label for="inputPassword4" class="form-label">Faculty</label>
-                        {{assignform.event_coordinator}}
-                        {% comment %} <select id="inputState" name="event_coordinator" class="form-select">
-                            {% for faculty in faculties %}
-                            <option>{{faculty.user.first_name}} {{faculty.user.last_name}} </option>
-                            {% endfor %}
-                        </select> {% endcomment %}
+                        {{form.event_coordinator}}
+                        
                     </div>
                     <div class="col-lg-6">
                         <label for="inputAddress2" class="form-label">Resource Person</label>
-                        {{assignform.res_person}}
+                        {{form.res_person}}
                     </div>
 
                     <div class="col-lg-6">
@@ -135,8 +131,7 @@
                             <option>{{faculty.user.email}}</option>
                             {% endfor %}
                         </select>
-                        {% comment %} <input type="email" class="form-control" name="email" id="inputEmail4">
-                        {% endcomment %}
+                        
                     </div>
 
                     <button type="submit" class="btn btn-primary">Send Email</button>

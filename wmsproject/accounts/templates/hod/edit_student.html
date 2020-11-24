@@ -36,13 +36,13 @@
 
 
 
-      <div class="nav flex-column nav-pills text-center mt-2" aria-orientation="vertical">
+       <div class="nav flex-column nav-pills text-center mt-2" aria-orientation="vertical">
         <a class="nav-link" href="{% url 'hod_home' %}"><i class="fas fa-home"></i> Home</a>
 
-        <a class="nav-link " href="{% url 'all_reports' %}"><i class="fas fa-building"></i> All
+        <a class="nav-link" href="{% url 'all_reports' %}"><i class="fas fa-building"></i> All
           Reports</a>
-        <a class="nav-link active " href="{% url 'faculties' %}"><i class="fas fa-building"></i> All Faculties</a>
-        <a class="nav-link " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
+        <a class="nav-link " href="{% url 'faculties' %}"><i class="fas fa-building"></i> All Faculties</a>
+        <a class="nav-link active " href="{% url 'students' %}"><i class="fas fa-building"></i> All Students</a>
 
         <a class="nav-link " href="{% url 'task_assigned' %}"><i class="fas fa-building"></i> Task Assigned</a>
         <a class="nav-link " href="{% url 'add_faculty' %}"><i class="fas fa-building"></i> Add Faculty</a> 
@@ -91,7 +91,7 @@
 
         </div>
 
-        <form method="POST" enctype="multipart/form-data" >
+        <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
             {{u_form.as_p}}
            {{form.as_p}}
