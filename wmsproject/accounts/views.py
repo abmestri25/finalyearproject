@@ -13,6 +13,7 @@ from django.contrib import messages
 import datetime
 from django.template.loader import get_template
 from .utils import render_to_pdf
+from .filters import FacultyFilter,ReportFilter,StudentFilter,TaskFilter
 # Create your views here.
 
 def login_request(request):
@@ -129,7 +130,8 @@ def all_reports(request):
     total_reports = reports.count()
     workshops = reports.filter(types="Workshop").count()
     seminars = reports.filter(types="Seminar").count()
-    
+    filter = ReportFilter(request.GET, queryset=Report.objects.all())
+    reports = filter.qs
     context = {
     'reports':reports,
     'total_reports':total_reports,
@@ -137,6 +139,7 @@ def all_reports(request):
     'seminars':seminars,
     'pending_reports':pending_reports,
     'pending': pending,
+    'filter':filter
     }
     return render(request,'../templates/hod/allreports.html',context)
 
@@ -197,16 +200,23 @@ def delete_task(request,task_id):
 @login_required(login_url='login')
 def faculties(request):
     faculties = Faculty.objects.all()
+    filter = FacultyFilter(request.GET, queryset=Faculty.objects.all())
+    faculties = filter.qs
     context = {
-    'faculties' : faculties,   
+    'faculties' : faculties, 
+    'filter':filter  
     }
     return render(request,'../templates/hod/faculties.html',context)
 
 @login_required(login_url='login')
 def students(request):
     students = Student.objects.all()
+    filter = StudentFilter(request.GET, queryset=Student.objects.all())
+    students = filter.qs
     context = {
-    'students' : students,   
+    'students' : students,  
+    'filter':filter  
+
     }
     return render(request,'../templates/hod/students.html',context)
 
@@ -247,8 +257,12 @@ def add_faculty(request):
 @login_required(login_url='login')
 def task_assigned(request):
     tasks = TaskAssigned.objects.all()
+    filter = TaskFilter(request.GET, queryset=TaskAssigned.objects.all())
+    tasks = filter.qs
     context = {
         'tasks':tasks,
+        'filter':filter  
+
     }
     return render(request,'../templates/hod/task_assigned.html',context)
 
@@ -348,7 +362,7 @@ def edit_student(request,student_id):
 def faculty_home(request):
     faculties = Faculty.objects.all()
     my_reports = request.user.faculty.report_set.all()
-    pending_reports = Report.objects.filter(status=0)
+    pending_reports = request.user.faculty.report_set.filter(status=0)
     pending = pending_reports.count()
     total_reports = my_reports.count()
     workshops = my_reports.filter(types="Workshop").count()
